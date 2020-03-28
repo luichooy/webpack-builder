@@ -10,9 +10,10 @@ cache:
 node_js: stable
 
 install:
-  - npm install -D
+  - npm install
   - cd demo
-  - npm install -D
+  - npm install
+  - cd ..
 
 script:
   - npm test
