@@ -1,0 +1,19 @@
+.webpack-greeting {
+	border-radius: 50%;
+	border: 1px solid #f00;
+	color: #f00;
+	transition: all 0.3s ease-in-out;
+}
+
+::placeholder {
+	color: gray;
+}
+
+.image {
+	box-shadow: 10px 10px #f00;
+}
+@media (min-resolution: 2dppx) {
+	.image {
+		box-shadow: 10px 10px rgb(80, 34, 174);
+	}
+}
