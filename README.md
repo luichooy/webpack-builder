@@ -535,6 +535,22 @@ const smp = new SpeedMeasureWebpackPlugin()
 module.exports = smp.wrap(webpackConfig)
 ```
 
+####    [webpack-bundle-analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer) 
+```javascript
+// webpack-prod.js
+
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+
+module.exports = {
+  plugins: [
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static', // 在 output.path 中生成 report.html
+      openAnalyzer: false // 默认不在浏览器中代开 report.html
+    })
+  ]
+}
+```
+
 
 
 ##  冒烟测试
