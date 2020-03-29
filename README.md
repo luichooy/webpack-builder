@@ -19,7 +19,7 @@ module.exports = {
     rules: [
       {
         test: /\.scss$/,
-        use: [‘style-loader’, ‘css-loader’, ‘postcss-loader’, ‘sass-loader’]
+        use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
       }
     ]
   }
@@ -32,7 +32,7 @@ module.exports = {
 // postcss.config.js
 
 module.exports = {
-  plugins: [require(‘autoprefixer’)]
+  plugins: [require('autoprefixer')]
 }
 ```
 
@@ -50,11 +50,11 @@ not ie <= 8
 
 - 通过 npm script 清理构建目录
 
-```bash
-// rm 命令
+```shell script
+# rm 命令
 rm -rf ./dist && webpack
 
-// rimraf 库
+# rimraf 库
 rimraf ./dist && webpack
 ```
 
@@ -62,7 +62,7 @@ rimraf ./dist && webpack
   使用 `clean-webpack-plugin`
 
 ```javascript
-const cleanWebpackPlugin = require(‘clean-webpack-plugin’)
+const cleanWebpackPlugin = require('clean-webpack-plugin')
 module.exports = {
   plugin: [
     new cleanWebpackPlugin()
@@ -78,13 +78,14 @@ module.exports = {
 
 ```javascript
 // webpack.prod.js
+
 module.exports = {
-	plugins: [
-		new OptimizeCssAssetsWebpackPlugin({
-			assetNameRegExp: /\.css$/,
-			cssPorcessor: cssnano
-		})
-	]
+  plugins: [
+    new OptimizeCssAssetsWebpackPlugin({
+        assetNameRegExp: /\.css$/,
+        cssPorcessor: cssnano
+    })
+  ]
 }
 ```
 
@@ -94,16 +95,16 @@ module.exports = {
 
 ```javascript
 new HtmlWebpackPlugin({
-	template: path.resolve(__dirname, `./src/pages/index.html`),
-	filename: `index.html`,
-	chunks: [index],
-	minify: {
-		collapseBooleanAttributes: true,
-		collapseWhitespace: true,
-		minifyJS: true,
-		minifyCss: true,
-		removeComments: true
-	}
+  template: path.resolve(__dirname, `./src/pages/index.html`),
+  filename: `index.html`,
+  chunks: [index],
+  minify: {
+    collapseBooleanAttributes: true,
+    collapseWhitespace: true,
+    minifyJS: true,
+    minifyCss: true,
+    removeComments: true
+  }
 })
 ```
 
@@ -134,22 +135,20 @@ new HtmlWebpackPlugin({
 #### HTML 和 JS 内联, 使用 raw-loader
 
 ```html
-// html-webpack-plugin 默认的模板引擎是 ejs，所以可以这样插入
+<!--html-webpack-plugin 默认的模板引擎是 ejs，所以可以这样插入-->
 
 <!DOCTYPE html>
 <html lang="“en”">
-	<head>
-		${require(‘raw-loader!../meta.html’)}
-		<title>Search</title>
-		<script>
-			{
-			  require(‘raw-loader!babel-loader!../../node_modules/lib-flexible/flexible.js’)
-			}
-		</script>
-	</head>
-	<body>
-		<div id="root"></div>
-	</body>
+  <head>
+    ${require(‘raw-loader!../meta.html’)}
+    <title>Search</title>
+    <script>
+      { require('raw-loader!babel-loader!../../node_modules/lib-flexible/flexible.js')}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
 </html>
 ```
 
@@ -177,24 +176,25 @@ chunks（语块），当代码运⾏到需要它们的时候再进⾏加载。
 
 ```javascript
 // webpack.prod.config.js
-const HtmlWebpackExternalsPlugin = require(‘html-webpack-externals-plugin’)
+
+const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
 module.exports = {
-	plugins: [
-		new HtmlWebpackExternalsPlugin({
-			externals: [
-				{
-					module: ‘react’,
-          		entry: ‘https://cdn.bootcss.com/react/16.13.1/umd/react.production.min.js’,
-          		global: ‘React’
-				},
-				{
-					module: ‘react-dom’,
-          		entry: ‘https://cdn.bootcss.com/react-dom/16.13.1/umd/react-dom.production.min.js’,
-          		global: ‘ReactDOM’
-				}
-			]
-		})
-	]
+  plugins: [
+    new HtmlWebpackExternalsPlugin({
+      externals: [
+        {
+          module: 'react',
+          entry: 'https://cdn.bootcss.com/react/16.13.1/umd/react.production.min.js',
+          global: 'React'
+        },
+        {
+          module: 'react-dom',
+          entry: 'https://cdn.bootcss.com/react-dom/16.13.1/umd/react-dom.production.min.js',
+          global: 'ReactDOM'
+        }
+      ]
+    })
+  ]
 }
 ```
 
@@ -204,21 +204,18 @@ module.exports = {
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		${require('raw-loader!../meta.html')}
-		<title>Search</title>
-		<script>
-			${require('raw-loader!babel-loader!../../../node_modules/lib-flexible/flexible.js')}
-		</script>
-	</head>
-	<body>
-		<div id="root"></div>
-		<script src="https://cdn.bootcss.com/react/16.13.1/umd/react.development.js" type="text/javascript"></script>
-		<script
-			src="https://cdn.bootcss.com/react-dom/16.13.1/umd/react-dom.development.js"
-			type="text/javascript"
-		></script>
-	</body>
+  <head>
+    ${require('raw-loader!../meta.html')}
+    <title>Search</title>
+    <script>
+      ${require('raw-loader!babel-loader!../../../node_modules/lib-flexible/flexible.js')}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://cdn.bootcss.com/react/16.13.1/umd/react.development.js" type="text/javascript"></script>
+    <script src="https://cdn.bootcss.com/react-dom/16.13.1/umd/react-dom.development.js" type="text/javascript"></script>
+  </body>
 </html>
 ```
 
@@ -231,38 +228,38 @@ webpack4 内置`splitChunkPlugin`，替代 webpack3 中常用的 `CommonsChunkPl
 
 // 分离第三方基础库
 module.exports = {
-	optimization: {
-		splitChunks: {
-			cacheGroups: {
-				commons: {
-					test: /(react|react-dom)/,
-					name: 'vendors',
-					chunks: 'all'
-				}
-			}
-		}
-	}
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /(react|react-dom)/,
+          name: 'vendors',
+          chunks: 'all'
+        }
+      }
+    }
+  }
 }
 
 // 分离公共模块
 module.exports = {
-	optimization: {
-		splitChunks: {
-			minSize: 0,
-			cacheGroups: {
-				commons: {
-					name: 'commons',
-					chunks: 'all',
-					minChunks: 2
-				}
-			}
-		}
-	}
+  optimization: {
+    splitChunks: {
+      minSize: 0,
+      cacheGroups: {
+        commons: {
+          name: 'commons',
+          chunks: 'all',
+          minChunks: 2
+        }
+      }
+    }
+  }
 }
 
 // HtmlWebpackPlugin 插件中配置分离出来的公共库
 new HtmlWebpackPlugin({
-	chunks: ['commons', 'otherChunk']
+  chunks: ['commons', 'otherChunk']
 })
 ```
 
@@ -292,7 +289,7 @@ npm install @babel/plugin-syntax-dynamic-import -D
 ```json
 // .babelrc
 {
-	"plugins": ["@babel/plugin-syntax-dynamic-import"]
+  "plugins": ["@babel/plugin-syntax-dynamic-import"]
 }
 ```
 
@@ -413,7 +410,7 @@ webpack3 手动开启
 
 ```javascript
 module.exports = {
-	plugins: [new webpack.optimize.ModuleConcatenationPlugin()]
+  plugins: [new webpack.optimize.ModuleConcatenationPlugin()]
 }
 ```
 
@@ -451,14 +448,14 @@ webpack 和 eslint 集成
 ```javascript
 // webpack.prod.config.js
 module.exports = {
-	stats: 'errors-only'
+  stats: 'errors-only'
 }
 
 // webpack.dev.config.js
 module.exports = {
-	devServer: {
-		stats: 'errors-only'
-	}
+  devServer: {
+    stats: 'errors-only'
+  }
 }
 ```
 
@@ -469,11 +466,11 @@ module.exports = {
 
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 module.exports = {
-	plugins: [new FriendlyErrorsWebpackPlugin()]
+  plugins: [new FriendlyErrorsWebpackPlugin()]
 }
 ```
 
->     FriendlyErrorsWebpackPlugin 需要和 stats配合使用
+>   FriendlyErrorsWebpackPlugin 需要和 stats配合使用
 
 ## webpack 错误处理和异常捕获
 
@@ -498,20 +495,20 @@ webpack 中的 compiler 在每次构建结束后会触发 done 这个 hook, proc
 // webpack.config.js
 
 module.exports = {
-	plugins: [
-		function() {
-			/*
-			 * webpack3写法
-			 * this.plugin(done, stats => {})
-			 */
-			this.hooks.done.tap('done', stats => {
-				if (stats.compilation.errors && stats.compilation.errors.length && process.argv.indexOf('--watch') === -1) {
-					console.log('build error')
-					process.exit(1)
-				}
-			})
-		}
-	]
+  plugins: [
+    function() {
+      /*
+      * webpack3写法
+      * this.plugin(done, stats => {})
+      */
+      this.hooks.done.tap('done', stats => {
+        if (stats.compilation.errors && stats.compilation.errors.length && process.argv.indexOf('--watch') === -1) {
+          console.log('build error')
+          process.exit(1)
+        }
+      })
+    }
+  ]
 }
 ```
 
@@ -537,7 +534,7 @@ npm publish --access=public
 第一种是直接在 package.json中修改 name 字段
 ```json
 {
-    "name": "@luichooy/webpack-build"
+  "name": "@luichooy/webpack-build"
 }
 ```
 第二种是初始化项目是使用 npm init 的方式
