@@ -512,6 +512,21 @@ module.exports = {
 }
 ```
 
+##  如何在 webpack 中分析构建速度和构建体积
+
+####    初级分析： 使用 webpack 内置的 stats
+```json
+// package.json
+
+{
+  "scripts": {
+    "build:stats": "webpack --config webpack-prod.js --json > stats.json"
+  }  
+}
+```
+
+
+
 ##  冒烟测试
 * 构建是否成功
 * 每次构建完成 build 目录是否有内容输出
@@ -552,4 +567,24 @@ npm version major
 ```
 
 >   运行 `npm version`时会自动执行 `git tag`命令为本次发布打上标签
+
+##  git commit规范和自动生成 CHANGELOG
+```json
+// package.json
+
+{
+  "scripts": {
+    "commitmsg": "validate-commit-message",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
+  },
+  "devDependencies": {
+    "validate-commit-message": "",
+    "conventional-changelog-cli": "",
+    "husky": ""
+  }
+}
+```
+
+##  semver规范
+[semver](https://semver.org/lang/zh-CN/)
 

@@ -3,6 +3,7 @@
 build/
 .DS_Store
 demo/node_modules
+demo/stats.json
 # Logs
 logs
 *.log
