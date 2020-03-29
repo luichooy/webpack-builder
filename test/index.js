@@ -4,5 +4,5 @@ const path = require('path')
 process.chdir(path.resolve(__dirname, '../demo'))
 
 describe('webpack-builder test case', () => {
-    require('./unit/webpack-base-test')
+  require('./unit/webpack-base-test')
 })

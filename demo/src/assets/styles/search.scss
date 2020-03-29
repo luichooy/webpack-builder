@@ -1,32 +1,33 @@
 #root {
-	.greet {
-		color: red;
-
-		font: {
-			size: 20px;
-			weight: 700;
-		}
-
-		border: 1px solid red;
-		border-radius: 50%;
-		transition: all 0.3s ease-in-out;
-
-		::placeholder {
-			color: gray;
-		}
-
-		.image {
-			box-shadow: 10px 10px #f00;
-		}
-		@media (min-resolution: 2dppx) {
-			.image {
-				box-shadow: 10px 10px rgb(80, 34, 174);
-			}
-		}
-	}
-
-	.logo {
-		width: 480px;
-		height: 320px;
-	}
+  .greet {
+    color: red;
+    
+    font: {
+      size: 20px;
+      weight: 700;
+    }
+    
+    border: 1px solid red;
+    border-radius: 50%;
+    transition: all 0.3s ease-in-out;
+    
+    ::placeholder {
+      color: gray;
+    }
+    
+    .image {
+      box-shadow: 10px 10px #f00;
+    }
+    
+    @media (min-resolution: 2dppx) {
+      .image {
+        box-shadow: 10px 10px rgb(80, 34, 174);
+      }
+    }
+  }
+  
+  .logo {
+    width: 480px;
+    height: 320px;
+  }
 }
