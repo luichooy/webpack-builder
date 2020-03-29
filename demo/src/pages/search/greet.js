@@ -1,3 +1,3 @@
 export function greet() {
-	return 'Hello, Webpack! Hello Node.js'
+  return 'Hello, Webpack! Hello luichooy'
 }
