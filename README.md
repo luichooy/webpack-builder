@@ -525,6 +525,16 @@ module.exports = {
 }
 ```
 
+####    speed-measure-webpack-plugin
+```javascript
+// webpack.prod.js
+
+const SpeedMeasureWebpackPlugin = require('speed-measure-webpack-plugin')
+const smp = new SpeedMeasureWebpackPlugin()
+
+module.exports = smp.wrap(webpackConfig)
+```
+
 
 
 ##  冒烟测试
