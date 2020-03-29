@@ -1,6 +1,6 @@
 {
     "name": "@luichooy/webpack-builder",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "common webpack builder",
     "main": "index.js",
     "directories": {
