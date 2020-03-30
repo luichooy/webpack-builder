@@ -651,6 +651,49 @@ module.exports = {
 
 使用： `/lib/webpack.dll.js  /lib/webpack.prod.js`
 
+##  缓存
+*   babel-loader 开启缓存
+*   terser-webpack-plugin 开启缓存
+*   使用 cache-loader 或者 hard-source-webpack-plugin
+
+babel-loader
+```javascript
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: ['thread-loader', 'babel-loader?cacheDirectory=true']
+      }
+    ]
+  }
+}
+```
+
+terser-webpack-plugin
+```javascript
+const TerserPlugin = require('terser-webpack-plugin')
+
+module.exports = {
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        cache: true
+      })  
+   ]
+  }
+}
+```
+hard-source-webpack-plugin
+```javascript
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
+
+module.exports = {
+  plugins: [
+    new HardSourceWebpackPlugin()
+  ]
+}
+```
 
 ##  冒烟测试
 * 构建是否成功
