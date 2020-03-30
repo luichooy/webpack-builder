@@ -644,6 +644,13 @@ module.exports = {
 }
 ```
 
+##  预编译资源模块
+思路： 将第三方基础包和业务基础包打包成一个文件
+
+方法： 使用 DLLPlugin 进行分包，DLLReferencePlugin 对 mainfest.json 引用
+
+使用： `/lib/webpack.dll.js  /lib/webpack.prod.js`
+
 
 ##  冒烟测试
 * 构建是否成功
