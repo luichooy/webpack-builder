@@ -695,6 +695,28 @@ module.exports = {
 }
 ```
 
+##  缩小构建目标
+####    babel-loader includes/excludes 等
+
+####    减小文件搜索范围
+*   优化 resolve.modules配置 （减小模块搜索层级）
+*   优化 resolve.mainFields配置
+*   优化 resolve.extension 配置
+*   合理使用 alias
+
+```javascript
+module.exports = {
+  resolve: {
+    modules: path.resolve(__dirname, 'node_modules'), // 缩小模块查找范围到 node_modules 目录
+    mainFields: ['main'], // 指定项目入口
+    extension: ['.js'], // 缩小后缀查找范围
+    alias: {
+      'react': path.resolve(__dirname, 'node_modules/react/dist/react.min.js')
+    } 
+  }
+}
+```
+
 ##  冒烟测试
 * 构建是否成功
 * 每次构建完成 build 目录是否有内容输出
