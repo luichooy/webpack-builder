@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "webpack-dev-server --config ../lib/webpack.dev.js --open",
     "build": "webpack --config ../lib/webpack.prod.js",
+    "build:dll": "webpack --config ../lib/webpack.dll.js",
     "build:stats": "webpack --config ../lib/webpack.prod.js --json > stats.json"
   },
   "devDependencies": {

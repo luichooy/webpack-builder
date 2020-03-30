@@ -16,6 +16,7 @@ module.exports = {
   rules: {
     'no-tabs': 0,
     'space-before-function-paren': 0,
-    'no-undef': 0
+    'no-undef': 0,
+    'no-unused-vars': 0
   }
 }
