@@ -551,8 +551,8 @@ module.exports = {
 }
 ```
 
-##  多进程/多实例构建
-资源并行解析可选方案
+##  多进程/多实例构建: 资源并行解析
+可选方案
 *   [thread-loader](https://webpack.docschina.org/loaders/thread-loader/) （webpack4官方推出）
 *   [happypack](https://github.com/amireh/happypack) （webpack3常用，目前作者已逐渐放弃维护）
 *   parallel-webpack
@@ -620,6 +620,30 @@ Hash: 8b06f3065e9325105b25
 Version: webpack 4.42.1
 Time: 4741ms
 ```
+
+##  多进程/多实例构建: 并行压缩
+*   [webpack-parallel-uglify-plugin](https://github.com/gdborton/webpack-parallel-uglify-plugin)
+*   [uglifyjs-webpack-plugin](https://github.com/webpack-contrib/uglifyjs-webpack-plugin)
+*   [terser-webpack-plugin](https://github.com/webpack-contrib/terser-webpack-plugin)
+
+`terser-webpack-plugin` 相比 `uglifyjs-webpack-plugin`，多了压缩 es6 的功能
+
+```javascript
+// uglifyjs-webpack-plugin 用法相似
+const TerserPlugin = require('terser-webpack-plugin')
+
+module.exports = {
+  optimization: {
+  minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        parallel: true
+      })
+    ]
+  }
+}
+```
+
 
 ##  冒烟测试
 * 构建是否成功
