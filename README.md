@@ -717,6 +717,48 @@ module.exports = {
 }
 ```
 
+##  缩小构建体积
+####    css tree-shaking
+*   PurifyCss: 遍历源码，识别已经用的到 css class
+*   uncss: 只有html需要通过 jsdom来加载，所有的样式通过 postcss来解析，才能通过 document.querySelector来识别 html文件里面不存在的选择器
+*   [pugecss-webpack-plugin](https://github.com/FullHuman/purgecss-webpack-plugin) （需要和 mini-css-extract-plugin 配合使用）
+```javascript
+// 注意需搭配 mini-css-extract-webpack-plugin 使用
+const glob = require('glob-all')
+const PurgecssWebpackPlugin = require('purgecss-webpack-plugin')
+const PATH = {
+  src: path.resolve(__dirname, './src')
+}
+
+module.exports = {
+  plugins: [
+    new PurgecssWebpackPlugin({
+      paths: glob.sync(`${PATH.src}/**/*`, { nodir: true })
+    })
+  ]
+}
+```
+
+####    图片压缩
+*   基于 Node库 imagemin 或者 tinypng API
+*   在 webpack中与 imagemin 对应的插件 [image-webpack-loader](https://github.com/tcoopman/image-webpack-loader)
+
+####  动态 polyfill
+
+| 方案 | 优点 | 缺点 | 是否采用 |
+| ----- | ---- | ---- | ---- |
+| babel-polyfill | react16 官方推荐 | 1. 包体积 200k+，难以抽离 Map,Set 2. 项目里 react是单独引用的 cdn，如果要用它，如果要用它，需要单独构建一份放在 react 前加载 | ❎ |
+| babel-plugin-transform-runtime | 只 polyfill 到用到的类或方法 | 不能 polyfill 到原型上的方法，不适用于业务项目的复杂开发环境 | ❎ |
+| 自己写 Map, Set 的 polyfill | 定制化高，体积小 | 1. 重复造轮子，容易在日后年久失修成为坑。 2. 即使体积小，依然所有用户都需要加载 | ❎ |
+| polyfill-service | 只给用户返回需要的 polyfill，社区维护 | 部分国内奇葩浏览器UA 可能无法识别，（但可以降级返回全部 polyfill） | ✅ |
+[es6-shim](https://github.com/paulmillr/es6-shim)
+
+polyfill-service 原理：识别 User-Agent，下发不同的 polyfill
+
+使用：
+*   [polyfill.io](https://polyfill.io/v3/)官方提供的服务
+*   基于官方自建 polyfill 服务
+
 ##  冒烟测试
 * 构建是否成功
 * 每次构建完成 build 目录是否有内容输出
