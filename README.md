@@ -551,7 +551,75 @@ module.exports = {
 }
 ```
 
+##  多进程/多实例构建
+资源并行解析可选方案
+*   [thread-loader](https://webpack.docschina.org/loaders/thread-loader/) （webpack4官方推出）
+*   [happypack](https://github.com/amireh/happypack) （webpack3常用，目前作者已逐渐放弃维护）
+*   parallel-webpack
 
+####    thread-loader 使用
+
+```javascript
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: [
+          'thread-loader',
+          'babel-loader'
+        ] 
+      }
+    ]
+  }
+}
+```
+
+未开启 thread-loader 前
+```shell script
+Hash: 8b06f3065e9325105b25
+Version: webpack 4.42.1
+Time: 5851ms
+```
+开启后
+```shell script
+Hash: 8b06f3065e9325105b25
+Version: webpack 4.42.1
+Time: 4940ms
+```
+
+####  happypack的使用
+```javascript
+const HappyPack = require('happypack')
+
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: 'happypack/loader'
+      }
+    ]
+  },
+  plugins: [
+    new HappyPack({
+      loaders: ['babel-loader']
+    })
+  ]
+}
+```
+未开启 happypack 前
+```shell script
+Hash: 8b06f3065e9325105b25
+Version: webpack 4.42.1
+Time: 8364ms
+```
+开启后
+```shell script
+Hash: 8b06f3065e9325105b25
+Version: webpack 4.42.1
+Time: 4741ms
+```
 
 ##  冒烟测试
 * 构建是否成功
