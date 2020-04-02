@@ -759,6 +759,27 @@ polyfill-service 原理：识别 User-Agent，下发不同的 polyfill
 *   [polyfill.io](https://polyfill.io/v3/)官方提供的服务
 *   基于官方自建 polyfill 服务
 
+##  loader
+####    loader的执行顺序：
+*   多个 loader 串行执行
+*   顺序从后到前，从右到左
+
+
+####   loader执行顺序的原理：
+ 函数组合的两种情况
+*   Unix中的 pipline
+*   Compose
+
+webpack采用的就是 Compose：
+```javascript
+compose = (f, g) => (...args) => f(g(...args))
+```
+
+####    loader 开发
+*   loader运行时： [loader-runner](https://github.com/webpack/loader-runner)
+*   获取 loader options: [loader-utils](https://github.com/webpack/loader-utils)
+*   loader options 参数校验： [schema-utils](https://github.com/webpack/schema-utils)
+
 ##  冒烟测试
 * 构建是否成功
 * 每次构建完成 build 目录是否有内容输出
