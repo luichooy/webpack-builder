@@ -780,6 +780,75 @@ compose = (f, g) => (...args) => f(g(...args))
 *   获取 loader options: [loader-utils](https://github.com/webpack/loader-utils)
 *   loader options 参数校验： [schema-utils](https://github.com/webpack/schema-utils)
 
+####    loader-utils 暴露出来的方法：
+```javascript
+import {
+  getOptions,
+  parseQuery,
+  stringifyRequest,
+  urlToRequest,
+  interpolateName,
+  getHashDigest
+} from 'loader-utils'
+```
+
+####    loader 传参的方式
+*   object
+*   string
+
+```
+// object
+{
+  loader: 'x-loader',
+  options: {
+    param1: value1,
+    param2: value2
+  }
+}
+
+// string
+{
+  loader: 'x-loader',
+  options: 'param1=value1&param2=value2'
+}
+```
+
+####    loader异常处理
+*   loader内直接通过 throw 抛出
+*   通过 this.callback 传递错误
+
+```
+this.callback(
+  error: Error | null,
+  content: string | Buffer,
+  sourceMap?: SourceMap,
+  meta?: any
+)
+```
+
+####    loader 的异步处理
+通过 `this.async`来返回一个异步函数
+
+```javascript
+module.exports = function(source) {
+  const callback = this.async()
+
+  ...
+
+  callback(error, result)
+}
+```
+
+####    loader 中的缓存
+webpack中默认开启 loader 缓存，可以使用 `this.cacheable(false)`关闭缓存
+
+缓存条件： 
+*   loader 在相同的输入下有确定的输出
+*   有依赖的 loader 无法使用缓存
+
+####    loader如何进行文件输出？
+通过 `this.emitFile(outpath, content)`
+
 ##  冒烟测试
 * 构建是否成功
 * 每次构建完成 build 目录是否有内容输出
