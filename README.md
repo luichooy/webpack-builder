@@ -849,6 +849,31 @@ webpack中默认开启 loader 缓存，可以使用 `this.cacheable(false)`关�
 ####    loader如何进行文件输出？
 通过 `this.emitFile(outpath, content)`
 
+##  plugin
+####    插件的错误处理
+*   参数校验阶段可以直接 throw Error
+*   通过 compilation 对象的 warnings 和 errors 接收
+
+####    通过 compilation 进行文件写入
+*   compilation 上的 assets 可以用于文件写入
+*   文件写入需要使用 [webpack-sources](https://github.com/webpack/webpack-sources)
+
+```javascript
+compilation.warnings.push('warning')
+compilation.errors.push('error')
+```
+
+ ####   compiler 上负责文件生成的 hooks
+ emit hook 是一个异步 hook, emit 生成文件阶段，读取的是 compilation.assets 对象的值
+
+ ####    编写插件的插件
+ 插件自身也可以通过暴露 hooks 的方式进行自身扩展，已 html-webpack-plugin 为例：
+ *   html-webpack-plugin-after-chunk(Sync)
+ *   html-webpack-plugin-before-html-generation(Async)
+ *   html-webpack-plugin-after-asset-tags(Async)
+ *   html-webpack-plugin-after-html-processing(Async)
+ *   html-webpack-plugin-after-emit(Async)
+
 ##  冒烟测试
 * 构建是否成功
 * 每次构建完成 build 目录是否有内容输出
